@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> The Jhunjhunu Place Hotel - Premium Accommodations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #1e40af;
+            --secondary: #f59e0b;
+            --accent: #10b981;
+            --dark: #1f2937;
+            --light: #f8fafc;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), 
+                       url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9f18ba49-eef5-4393-b8ac-6d959640acea.png') no-repeat center center/cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        .room-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .room-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .amenity-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        
+        .booking-form {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        
+        .gallery-item img {
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        #bookingSuccess {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white shadow-lg z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="text-2xl font-bold text-blue-800">The Jhunjhunu Place</div>
+            </div>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="nav-link text-gray-700 hover:text-blue-800">Home</a>
+                <a href="#rooms" class="nav-link text-gray-700 hover:text-blue-800">Rooms</a>
+                <a href="#amenities" class="nav-link text-gray-700 hover:text-blue-800">Amenities</a>
+                <a href="#gallery" class="nav-link text-gray-700 hover:text-blue-800">Gallery</a>
+                <a href="#contact" class="nav-link text-gray-700 hover:text-blue-800">Contact</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <a href="#booking" class="bg-blue-800 text-white px-6 py-2 rounded-full hover:bg-blue-900 transition duration-300">
+                    Book Now
+                </a>
+                <button class="md:hidden text-gray-700">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container mx-auto px-6 text-center text-white">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6">Experience Ultimate Luxury</h1>
+            <p class="text-xl md:text-2xl mb-8">Where comfort meets elegance in every detail</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#booking" class="bg-orange-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-orange-600 transition duration-300">
+                    Book Your Stay
+                </a>
+                <a href="#rooms" class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-blue-800 transition duration-300">
+                    Explore Rooms
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Rooms -->
+    <section id="rooms" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Luxurious Accommodations</h2>
+                <p class="text-xl text-gray-600">Choose from our exquisite collection of rooms and suites</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Room 1 -->
+                <div class="room-card bg-white rounded-xl overflow-hidden shadow-lg">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8eeb2689-aa78-41a1-87cc-efd2afa0a1c0.png" alt="Deluxe king room with modern luxury amenities and city view featuring a spacious bed, elegant decor, and large windows with panoramic city skyline" class="w-full h-64 object-cover">
+                        <div class="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full">
+                            $199/night
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Deluxe King Room</h3>
+                        <p class="text-gray-600 mb-4">Spacious room with king-size bed, modern amenities, and stunning city views.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-user text-blue-800"></i>
+                                <span>2 Guests</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-bed text-blue-800"></i>
+                                <span>1 King Bed</span>
+                            </div>
+                        </div>
+                        <button class="w-full mt-4 bg-blue-800 text-white py-3 rounded-lg hover:bg-blue-900 transition duration-300">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Room 2 -->
+                <div class="room-card bg-white rounded-xl overflow-hidden shadow-lg">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b4818ecc-5c9b-4dd6-8f98-e0debbe966f2.png" alt="Executive suite with separate living area, premium furnishings, comfortable seating area, work desk, and elegant bathroom with modern fixtures" class="w-full h-64 object-cover">
+                        <div class="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full">
+                            $299/night
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Executive Suite</h3>
+                        <p class="text-gray-600 mb-4">Luxurious suite with separate living area, premium amenities, and panoramic views.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-user text-blue-800"></i>
+                                <span>4 Guests</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-bed text-blue-800"></i>
+                                <span>2 Queen Beds</span>
+                            </div>
+                        </div>
+                        <button class="w-full mt-4 bg-blue-800 text-white py-3 rounded-lg hover:bg-blue-900 transition duration-300">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Room 3 -->
+                <div class="room-card bg-white rounded-xl overflow-hidden shadow-lg">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/cbe3dd74-ad8d-41dd-a1b3-be34a8bbe2fa.png" alt="Presidential penthouse with luxury amenities, private terrace, premium furniture, panoramic windows, and exclusive access to premium services" class="w-full h-64 object-cover">
+                        <div class="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full">
+                            $499/night
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Presidential Penthouse</h3>
+                        <p class="text-gray-600 mb-4">Ultimate luxury with private terrace, premium services, and exclusive access.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-user text-blue-800"></i>
+                                <span>6 Guests</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-bed text-blue-800"></i>
+                                <span>3 King Beds</span>
+                            </div>
+                        </div>
+                        <button class="w-full mt-4 bg-blue-800 text-white py-3 rounded-lg hover:bg-blue-900 transition duration-300">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Amenities -->
+    <section id="amenities" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Premium Amenities</h2>
+                <p class="text-xl text-gray-600">Everything you need for a perfect stay</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- <div class="text-center">
+                    <div class="amenity-icon mb-4">
+                        <i class="fas fa-swimming-pool text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Infinity Pool</h3>
+                    <p class="text-gray-600">Stunning rooftop pool with panoramic city views</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="amenity-icon mb-4">
+                        <i class="fas fa-spa text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Spa & Wellness</h3>
+                    <p class="text-gray-600">Premium spa treatments and wellness facilities</p>
+                </div> -->
+                
+                <div class="text-center">
+                    <div class="amenity-icon mb-4">
+                        <i class="fas fa-utensils text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Fine Dining</h3>
+                    <p class="text-gray-600">Award-winning restaurants and room service</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="amenity-icon mb-4">
+                        <i class="fas fa-wifi text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">High-Speed WiFi</h3>
+                    <p class="text-gray-600">Complimentary high-speed internet access</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Form -->
+    <section id="booking" class="py-20 bg-blue-900">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto booking-form">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-gray-800">Book Your Stay</h2>
+                    <p class="text-gray-600">Reserve your perfect room with ease</p>
+                </div>
+                
+                <form id="bookingForm" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 mb-2">Check-in Date</label>
+                            <input type="date" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-800 focus:border-transparent" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">Check-out Date</label>
+                            <input type="date" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-800 focus:border-transparent" required>
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 mb-2">Room Type</label>
+                            <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-800 focus:border-transparent" required>
+                                <option value="">Select Room Type</option>
+                                <option value="deluxe">Deluxe King Room</option>
+                                <option value="executive">Executive Suite</option>
+                                <option value="presidential">Presidential Penthouse</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">Guests</label>
+                            <select class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-800 focus:border-transparent" required>
+                                <option value="1">1 Guest</option>
+                                <option value="2">2 Guests</option>
+                                <option value="3">3 Guests</option>
+                                <option value="4">4 Guests</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-gray-700 mb-2">Full Name</label>
+                            <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-800 focus:border-transparent" required>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">Email Address</label>
+                            <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-800 focus:border-transparent" required>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-gray-700 mb-2">Special Requests</label>
+                        <textarea rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-800 focus:border-transparent" placeholder="Any special requirements..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-blue-800 text-white py-4 rounded-lg font-semibold hover:bg-blue-900 transition duration-300">
+                        Confirm Booking
+                    </button>
+                </form>
+                
+                <div id="bookingSuccess" class="mt-6 p-4 bg-green-100 border border-green-400 rounded-lg text-green-700 text-center">
+                    <i class="fas fa-check-circle text-2xl mb-2"></i>
+                    <p class="font-semibold">Booking Successful!</p>
+                    <p>We've sent a confirmation to your email.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Hotel Gallery</h2>
+                <p class="text-xl text-gray-600">Explore our beautiful property and facilities</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/83c2a004-5d01-4453-9aae-63989f8742ad.png" alt="Luxury hotel lobby with modern design, elegant seating, marble floors, and contemporary art pieces" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9a39a8c0-8764-414f-acc6-77995da09117.png" alt="Fine dining restaurant with elegant table settings, ambient lighting, and sophisticated decor" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/0339658a-97e8-472c-8d92-4fb627041569.png" alt="Spa and wellness center with relaxation area, treatment rooms, and tranquil atmosphere" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f12ebe5e-9fab-4ed5-913a-fd1a13ec4651.png" alt="Conference room with modern technology, comfortable seating, and professional meeting setup" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ca342863-2f14-4ee7-a618-417bb0f8b793.png" alt="Swimming pool area with lounge chairs, tropical plants, and beautiful surrounding views" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a33110c2-942e-453d-8fb3-32109e7b919f.png" alt="Fitness center with modern exercise equipment, mirrors, and clean workout environment" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/fec54615-bf31-4cb6-9560-7a763a98c31b.png" alt="Hotel exterior with modern architecture, beautiful landscaping, and impressive entrance" class="w-full h-48 object-cover">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/886f13da-8636-4533-b8cf-a2ae3ffef310.png" alt="Room service tray with gourmet food, elegant presentation, and luxury dining experience" class="w-full h-48 object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Guest Reviews</h2>
+                <p class="text-xl text-gray-600">What our guests say about us</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"Absolutely stunning hotel! The service was exceptional and the rooms were incredibly comfortable. Will definitely return!"</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+                        <div>
+                            <h4 class="font-semibold">Sarah Johnson</h4>
+                            <p class="text-gray-500">Business Traveler</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"The perfect honeymoon destination! The staff went above and beyond to make our stay memorable. Highly recommend!"</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+                        <div>
+                            <h4 class="font-semibold">Michael Chen</h4>
+                            <p class="text-gray-500">Honeymooner</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"Outstanding facilities and impeccable service. The spa treatments were heavenly and the dining experience was exquisite."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+                        <div>
+                            <h4 class="font-semibold">Emily Rodriguez</h4>
+                            <p class="text-gray-500">Spa Guest</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Footer -->
+    <section id="contact" class="py-20 bg-gray-800 text-white">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4">The Jhunjhunu Place</h3>
+                    <p class="text-gray-300">Experience the epitome of luxury and comfort in the heart of the city.</p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-300 hover:text-white">Home</a></li>
+                        <li><a href="#rooms" class="text-gray-300 hover:text-white">Rooms & Suites</a></li>
+                        <li><a href="#amenities" class="text-gray-300 hover:text-white">Amenities</a></li>
+                        <li><a href="#gallery" class="text-gray-300 hover:text-white">Gallery</a></li>
+                        <li><a href="#booking" class="text-gray-3
